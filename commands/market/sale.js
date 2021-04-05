@@ -44,7 +44,6 @@ module.exports = {
             market.saleOn = true;
             market.save();
             const randomPlayerIndex = Math.floor(Math.random() * market.players.length);
-            message.channel.send(randomPlayerIndex);
             let playerID;
             if(market.players.length > 0) {
                 playerID = market.players[randomPlayerIndex];
@@ -140,7 +139,7 @@ module.exports = {
                             player.cost = currentBid;
                             player.isSold = true;
                             player.save();
-                            market.save();
+                            
                             team.save();
                             message.channel.send(`**Sale ended. ${player.osuUser} has been sold for ${currentBidString}${currency} to ${team.teamName}.**`);
 
@@ -148,7 +147,23 @@ module.exports = {
                                 market.auctionOn = false;
                                 return message.channel.send('**There are no players left on the market.\nThe auction is now over.**');
                             }
+                            market.save();
 
+                            teamData.find({}, (err, teams) => {
+                                if(err) console.log(err);
+                                if(!teams) return;
+                                let teamsFull = true;
+                                teams.forEach(team => {
+                                    if(team.players.length < maxTeamSize)
+                                        teamsFull = false;
+                                });
+                                if(teamsFull) {
+                                    market.auctionOn = false;
+                                    market.save();
+                                    return message.channel.send('**All teams are full. The auction is now over.**');
+                                }
+                            });
+                            
                             return;
                         });
                     }
