@@ -35,9 +35,7 @@ module.exports = {
                 if(teamm.players.length < maxTeamSize)
                     teamsFull = false;
             });
-            message.channel.send(teamsFull);
             if(teamsFull) {
-                message.channel.send(teamsFull);
                 marketData.findOneAndUpdate({ guildID: message.guild.id }, { auctionOn: false });
                 return message.channel.send('**All teams are full. The auction is now over.**');
             }
