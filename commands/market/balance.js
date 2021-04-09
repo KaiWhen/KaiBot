@@ -41,7 +41,7 @@ module.exports = {
                 guildID: message.guild.id
             }, (err, team) => {
                 if(err) console.log(err);
-                if(!team) return message.reply('saoieunhgousaeg');
+                if(!team) return;
                 balance = helper.numberWithCommas(team.balance);
                 balanceMessage += `**${team.teamName}:**\n**Balance:** ${balance}${currency}`;
                 return message.channel.send(balanceMessage);
