@@ -17,7 +17,7 @@ module.exports = {
             if(err) console.log(err);
             if(!market) message.channel.send('A market has not been created yet for this server. `.market create <name>` to create one.');
             if(args[0] == 'all') {
-                teamData.find({}, (err, teams) => {
+                teamData.find({ guildID: message.guild.id }, (err, teams) => {
                     if(err) console.log(err);
                     if(!teams) return;
                     teamEmbed.setTitle(`Teams for ${market.name}`)
@@ -32,12 +32,12 @@ module.exports = {
                 if(!message.member.roles.cache.some(role => role.name === 'Captain')) return;
                 let name = '';
                 if(args[1]) name = message.content.split(' ').splice(2).join(' ');
-                teamData.findOne({ captainUserID: message.author.id }, (err, team) => {
+                teamData.findOne({ guildID: message.guild.id, captainUserID: message.author.id }, (err, team) => {
                     if(err) console.log(err);
                     if(!team) return;
                     if(!args[1]) return message.channel.send(`Your team name is '${team.teamName}'. Use \`${prefix}team name <name>\` to change your team name.`);
                     team.teamName = name;
-                    playerData.findOne({ userID: message.author.id }, (err, player) => {
+                    playerData.findOne({ guildID: message.guild.id, userID: message.author.id }, (err, player) => {
                         if(err) console.log(err);
                         if(!player) message.channel.send('And error has occurred.');
                         player.teamName = name;
@@ -58,7 +58,7 @@ module.exports = {
                 if(!message.member.roles.cache.some(role => role.name === 'Captain')) return;
                 if(!args[1]) return message.reply('please provide an image URL.');
                 const iconURL = message.content.split(' ').splice(2).join(' ');
-                teamData.findOne({ captainUserID: message.author.id }, (err, team) => {
+                teamData.findOne({ guildID: message.guild.id, captainUserID: message.author.id }, (err, team) => {
                     if(err) console.log(err);
                     if(!team) return;
                     team.teamIcon = iconURL;
@@ -70,10 +70,10 @@ module.exports = {
                 let userID;
                 if(message.mentions.members.first()) userID = message.mentions.members.first().id;
                 else userID = message.author.id;
-                playerData.findOne({ userID: userID }, (err, player) => {
+                playerData.findOne({ guildID: message.guild.id, userID: userID }, (err, player) => {
                     if(err) console.log(err);
                     if(!player) return;
-                    teamData.findOne({ teamName: player.teamName }, (err, team) => {
+                    teamData.findOne({ guildID: message.guild.id, teamName: player.teamName }, (err, team) => {
                         if(err) console.log(err);
                         if(!team) return message.channel.send('An error has occurred');
                         teamEmbed.setAuthor(`${team.teamName}`)

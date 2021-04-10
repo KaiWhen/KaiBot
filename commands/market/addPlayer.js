@@ -34,7 +34,8 @@ module.exports = {
                     if(!market) return message.reply('please create a market first.');
 
                     playerData.findOne({
-                        osuUser: playerName
+                        osuUser: playerName,
+                        guildID: message.guild.id
                     }, (err, player) => {
                         if(err) console.log(err);
                         if(!player) {
@@ -69,7 +70,8 @@ module.exports = {
 
                     const teamName = 'Team ' + playerName;
                     playerData.findOne({
-                        osuUser: playerName
+                        osuUser: playerName,
+                        guildID: message.guild.id
                     }, (err, player) => {
                         if(err) console.log(err);
                         if(!player) {
@@ -90,7 +92,8 @@ module.exports = {
                     });
 
                     teamData.findOne({
-                        captainName: playerName
+                        captainName: playerName,
+                        guildID: message.guild.id
                     }, (err, team) => {
                         if(err) console.log(err);
                         if(!team) {

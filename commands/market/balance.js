@@ -13,7 +13,7 @@ module.exports = {
         let balanceMessage = '';
         let balance = '';
         if(args[0] == 'all') {
-            teamData.find({}, (err, teams) => {
+            teamData.find({ guildID: message.guild.id }, (err, teams) => {
                 if(err) console.log(err);
                 if(!teams) return;
                 teams.forEach((team) => {
@@ -25,7 +25,7 @@ module.exports = {
         }
         else if(args[0] == 'reset') {
             if(!message.channel.permissionsFor(message.author).has('ADMINISTRATOR')) return;
-            teamData.find({}, (err, teams) => {
+            teamData.find({ guildID: message.guild.id }, (err, teams) => {
                 if(err) console.log(err);
                 if(!teams) return;
                 teams.forEach((team) => {

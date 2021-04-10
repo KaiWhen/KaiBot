@@ -18,7 +18,7 @@ module.exports = {
             if(err) console.log(err);
             if(!market) return;
 
-            playerData.find({}, (err, players) => {
+            playerData.find({ guildID: message.guild.id }, (err, players) => {
                 if(err) console.log(err);
                 if(!players) return;
                 players.forEach(player => {

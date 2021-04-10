@@ -27,7 +27,7 @@ module.exports = {
         let teamsFull;
 
 
-        teamData.find({}, (err, teams) => {
+        teamData.find({ guildID: message.guild.id }, (err, teams) => {
             if(err) console.log(err);
             if(!teams) return;
             teamsFull = true;
@@ -96,7 +96,7 @@ module.exports = {
 
                     collector.on('collect', m => {
                         const bid = Number(m.content.split(' ').splice(1));
-                        teamData.findOne({ captainUserID: m.author.id }, (err, team) => {
+                        teamData.findOne({ guildID: message.guild.id, captainUserID: m.author.id }, (err, team) => {
                             if(err) console.log(err);
                             teamSize = team.players.length;
                             if(teamSize >= maxTeamSize)

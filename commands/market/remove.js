@@ -21,7 +21,8 @@ module.exports = {
                 if(!market) return message.reply('please create a market first.');
 
                 playerData.findOneAndDelete({
-                    osuUser: playerName
+                    osuUser: playerName,
+                    guildID: message.guild.id
                 }, (err, player) => {
                     if(err) console.log(err);
                     if(!player) {
@@ -34,7 +35,8 @@ module.exports = {
                         market.save();
 
                         teamData.findOne({
-                            teamName: player.teamName
+                            teamName: player.teamName,
+                            guildID: message.guild.id
                         }, (err, team) => {
                             if(err) console.log(err);
                             if(!team) return;
@@ -58,14 +60,16 @@ module.exports = {
                 if(!market) return message.reply('please create a market first.');
 
                 playerData.findOneAndDelete({
-                    osuUser: playerName
+                    osuUser: playerName,
+                    guildID: message.guild.id
                 }, (err, player) => {
                     if(err) console.log(err);
                     if(!player) {
                         return message.channel.send('This player does not exist.');
                     }
                         teamData.findOneAndDelete({
-                            captainName: playerName
+                            captainName: playerName,
+                            guildID: message.guild.id
                         }, (err, team) => {
                             if(err) console.log(err);
                             if(!team) return;

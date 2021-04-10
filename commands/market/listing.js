@@ -20,7 +20,8 @@ const newListing = (message, playerID) => {
         if(!market) return message.reply('please create a market first.');
 
         playerData.findOne({
-            osuID: playerID
+            osuID: playerID,
+            guildID: message.guild.id
         }, (err, player) => {
             if(err) console.log(err);
             if(!player) {
