@@ -16,7 +16,7 @@ module.exports = {
         marketData.findOne({ guildID: message.guild.id }, (err, market) => {
             if(err) console.log(err);
             if(!market) message.channel.send('A market has not been created yet for this server. `.market create <name>` to create one.');
-            if(args[0] == 'all') {
+            if(args[0] == 'all' || args[0] == 'list') {
                 teamData.find({ guildID: message.guild.id }, (err, teams) => {
                     if(err) console.log(err);
                     if(!teams) return;
