@@ -23,7 +23,7 @@ module.exports = {
 		// }
 
 		const connection = await voice.channel.join();
-		const stream = ytdl(song.url, { filter: 'audioonly' });
+		// const stream = ytdl(song.url, { filter: 'audioonly' });
 		// const dispatcher = connection.play(stream, { seek: 0, volume: 0.5 })
 		// .on('finish', () => {
 		// 	console.log('finished playing');
