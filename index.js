@@ -28,7 +28,7 @@ for (const folder of commandFolders) {
 
 client.on('ready', async () => {
     console.log(`${client.user.username} is running`);
-    client.user.setActivity('ICCT3: Farmer\'s Market');
+    client.user.setActivity('DN');
   });
 
 client.on('message', async message => {
